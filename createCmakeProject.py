@@ -75,6 +75,21 @@ def createTestingFolder(testingDir):
   # Create a testing/CMakeLists
   createBasicCMakeLists(testingDir)
 
+def setupVsCode(folderPath):
+  # Create .vscode folder
+  vscodeFolder = folderPath + '/.vscode'
+  os.mkdir(vscodeFolder)
+
+  # Create .vscode/settings.json
+  settingsFile = vscodeFolder + '/settings.json'
+  os.mknod(settingsFile)
+
+  # Add the autosave to vscodeFile
+  with open(settingsFile, 'a') as settings:
+    settings.write('{\n')
+    settings.write('\t"files.autoSave": "onFocusChange"\n')
+    settings.write('}\n')
+
 def createFolderStructure(folderPath):
   os.mkdir(folderPath)
   #print('Created folder: {}'.format(folderPath))
@@ -105,6 +120,9 @@ def createFolderStructure(folderPath):
   createMainCMakeLists(folderPath)
   # Testing folder
   createTestingFolder(testingDir)
+
+  # Add .vscode settings (autosave)
+  setupVsCode(folderPath)
 
 
 
